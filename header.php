@@ -20,7 +20,7 @@
             <a href="index.php">Home</a>
             <a href="people.php">People</a>
             <a href="#">Projects</a>
-            <a href="#">News</a>
+            <a href="News-Events.php">News</a>
             <a href="About.php">About</a>
             <a href="contact.php">Contact</a>
         </nav>
