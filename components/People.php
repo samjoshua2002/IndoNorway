@@ -172,8 +172,13 @@
     .person-header {
         display: flex;
         gap: 12px;
+        align-items: flex-start;
+    }
+    @media (min-width: 768px) {
+    .person-header {
         align-items: flex-end;
     }
+}
 
     .person-image {
         width: 186px;
