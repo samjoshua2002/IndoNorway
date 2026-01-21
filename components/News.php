@@ -2,91 +2,116 @@
     <p class="page-header text-center mb-4">News & Events</p>
 
     <div class="news-list">
-        <!-- Item 1 -->
-        <div class="news-item">
-            <img class="news-item__image" src="assets/files/news/pexels-edward-jenner-4031418-r02.webp"
-                alt="News Image" />
-            <div class="news-item__content">
-                <div class="news-item__title">
-                    List of students accepted for the Global Mobility Programme 2025
-                </div>
-                <div class="news-item__date">12 September 2025</div>
-            </div>
-        </div>
+        <?php
+        // Connect to database
+        $conn = include __DIR__ . '/../database.php';
 
-        <!-- Item 2 -->
-        <div class="news-item news-item--bordered">
-            <img class="news-item__image" src="assets/files/news/pexels-olly-3778603-r01.webp" alt="Seminar Image" />
-            <div class="news-item__content">
-                <div class="news-item__category">Seminar</div>
-                <div class="news-item__title">
-                    Sample news item contained on this page. Aliquam arcu velit, suscipit sed auctor a, facilisis eget
-                    augue.
-                </div>
+        // Fetch events
+        $sql = "SELECT * FROM events ORDER BY created_at DESC";
+        $result = $conn->query($sql);
 
-                <div class="news-item__meta">
-                    <div class="meta-row">
-                        <span class="meta-label">Time:</span>
-                        <span class="meta-value">18 August 2025, 3:00 pm</span>
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $hasImage = !empty($row['image']);
+                $hasTitle = !empty($row['title']);
+                $isCitation = !$hasTitle && !empty($row['description']);
+
+                // Determine category/tag
+                $category = !empty($row['tag']) ? htmlspecialchars($row['tag']) : '';
+                ?>
+
+                <div class="news-item news-item--bordered">
+                    <?php if ($hasImage): ?>
+                        <img class="news-item__image" src="assets/files/news/<?php echo htmlspecialchars($row['image']); ?>"
+                            alt="<?php echo htmlspecialchars($row['title']); ?>" />
+                    <?php endif; ?>
+
+                    <div class="news-item__content">
+                        <?php if ($category): ?>
+                            <div class="news-item__category">
+                                <?php echo $category; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($isCitation): ?>
+                            <div class="news-item__citation">
+                                <?php echo $row['description']; // Allow HTML for citations ?>
+                            </div>
+                        <?php else: ?>
+                            <?php if ($hasTitle): ?>
+                                <div class="news-item__title">
+                                    <a href="InnerNews.php?id=<?php echo htmlspecialchars($row['id']); ?>"
+                                        style="text-decoration: none; color: inherit;">
+                                        <?php echo htmlspecialchars($row['title']); ?>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($row['event_date']) && empty($row['event_time'])): ?>
+                                <div class="news-item__date">
+                                    <?php echo htmlspecialchars($row['event_date']); ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php
+                            // Check for Meta Data
+                            $hasTime = !empty($row['event_time']);
+                            $hasVenue = !empty($row['venue']);
+                            $hasSpeaker = !empty($row['speaker']);
+
+                            if ($hasTime || $hasVenue || $hasSpeaker):
+                                ?>
+                                <div class="news-item__meta">
+                                    <?php if ($hasTime): ?>
+                                        <div class="meta-row">
+                                            <span class="meta-label">Time:</span>
+                                            <span class="meta-value">
+                                                <?php
+                                                echo htmlspecialchars($row['event_date']);
+                                                if (!empty($row['event_time'])) {
+                                                    echo ', ' . htmlspecialchars($row['event_time']);
+                                                }
+                                                ?>
+                                            </span>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <?php if ($hasVenue): ?>
+                                        <div class="meta-row">
+                                            <span class="meta-label">Venue:</span>
+                                            <span class="meta-value">
+                                                <?php echo htmlspecialchars($row['venue']); ?>
+                                            </span>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <?php if ($hasSpeaker): ?>
+                                        <div class="meta-row ">
+                                            <span class="meta-label">Speaker:</span>
+                                            <span class="meta-value ">
+                                                <?php echo htmlspecialchars($row['speaker']); ?>
+                                            </span>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($row['description'])): ?>
+                                <div class="news-item__body">
+                                    <?php echo nl2br(htmlspecialchars($row['description'])); ?>
+                                </div>
+                            <?php endif; ?>
+
+                        <?php endif; // End isCitation check ?>
                     </div>
-                    <div class="meta-row">
-                        <span class="meta-label">Venue:</span>
-                        <span class="meta-value">NAC 101</span>
-                    </div>
-                    <div class="meta-row">
-                        <span class="meta-label">Speaker:</span>
-                        <span class="meta-value">
-                            Maecenas scelerisque dapibus dolor non tincidunt. Vestibulum ante ipsum primis in faucibus
-                            orci luctus et ultrices posuere cubilia curae; Etiam risus mi, tincidunt non lobortis nec,
-                            gravida vel erat. Nam quis turpis eu risus vulputate commodo. Orci varius natoque penatibus
-                            et magnis dis parturient montes, nascetur ridiculus mus.
-                        </span>
-                    </div>
                 </div>
 
-                <div class="news-item__body">
-                    Sed in est sed tellus facilisis tincidunt. Phasellus semper justo et mauris egestas ornare. Maecenas
-                    eu ex dolor. Aenean facilisis ut turpis sed semper. Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit. Integer ornare ut orci ac lobortis. Donec rutrum metus ut risus mattis laoreet.
-                    Fusce commodo diam eget egestas dictum. Vestibulum sed porta urna. Donec tincidunt vitae leo id
-                    bibendum. Morbi purus felis, molestie quis semper at, consequat vitae diam. Maecenas finibus tellus
-                    vitae lacus vehicula, sed molestie metus pellentesque. Maecenas mollis dui non arcu dapibus,
-                    bibendum iaculis quam interdum. Aliquam arcu velit, suscipit sed auctor a, facilisis eget augue.
-                    Curabitur et libero tincidunt, accumsan nisi non, semper lacus. Vivamus rhoncus dignissim consequat.
-                    Donec euismod, tortor id varius luctus, nisl enim tincidunt nibh, sed laoreet enim mi vitae purus.
-                    Ut leo nibh, commodo a augue ut, porta mollis velit. Mauris sollicitudin augue at faucibus pharetra.
-                    Maecenas scelerisque dapibus dolor non tincidunt. Vestibulum ante ipsum primis in faucibus orci
-                    luctus et ultrices posuere cubilia curae; Etiam risus mi, tincidunt non lobortis nec, gravida vel
-                    erat.
-                </div>
-            </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="news-item news-item--bordered">
-            <div class="news-item__content">
-                <div class="news-item__category">Recent Publication</div>
-                <div class="news-item__citation">
-                    <span class="cita-author">Krishnamurthy, S., Sudhakar, S., &amp; Mani, E. (2022). Kinetics of
-                        aggregation of amyloid β under different shearing conditions: Experimental and modelling
-                        analyses.</span>
-                    <span class="cita-journal">Colloids and surfaces. B, Biointerfaces, 209</span>
-                    <span class="cita-pages">(Pt 1), 112156.</span>
-                    <a href="https://doi.org/10.1016/j.colsurfb.2021.112156"
-                        class="cita-doi">doi.org/10.1016/j.colsurfb.2021.112156</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="news-item">
-            <div class="news-item__content">
-                <div class="news-item__title">
-                    Applications open for Project Title (Last date: 13 July 2025)
-                </div>
-                <div class="news-item__date">30 June 2025</div>
-            </div>
-        </div>
+                <?php
+            }
+        } else {
+            echo '<p class="text-center">No news or events available at the moment.</p>';
+        }
+        ?>
     </div>
 </div>
 
@@ -185,6 +210,11 @@
         line-height: 108%;
         font-weight: 400;
         color: var(--color-text);
+        text-align: justify;
+    }
+
+    .news-item__title:hover {
+        text-decoration: underline;
     }
 
     .news-item__date,
@@ -200,13 +230,14 @@
 
     /* Meta text (Time, Venue, Speaker) */
     .news-item__meta {
-        margin-top: 8px;
+        margin-top: 4px;
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 10px;
         font-size: 20px;
         line-height: 108%;
         color: var(--color-text);
+
     }
 
     .meta-row {
@@ -220,6 +251,7 @@
 
     .meta-value {
         font-family: var(--font-body);
+        text-align: justify;
     }
 
     /* Body Text */
@@ -229,7 +261,7 @@
         line-height: 108%;
         font-weight: 400;
         color: var(--color-text);
-        text-align: left;
+        text-align: justify;
         margin-top: 8px;
         max-width: 100%;
     }
@@ -239,6 +271,11 @@
         font-family: var(--font-body);
         font-size: 20px;
         line-height: 108%;
+        color: var(--color-text);
+
+    }
+
+    .news-item__citation a {
         color: var(--color-text);
     }
 
