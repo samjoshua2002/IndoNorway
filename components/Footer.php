@@ -8,22 +8,22 @@
         </div>
     </div>
     <nav class="footer-nav-links">
-        <a href="#" class="footer-link footer-link-home">
+        <a href="index.php" class="footer-link footer-link-home">
             <span class="footer-link-text">Home</span>
         </a>
-        <a href="#" class="footer-link">
+        <a href="people.php" class="footer-link">
             <span class="footer-link-text">People</span>
         </a>
-        <a href="#" class="footer-link">
+        <a href="News-Events.php" class="footer-link">
             <span class="footer-link-text">News</span>
         </a>
-        <a href="#" class="footer-link">
+        <a href="Projects.php" class="footer-link">
             <span class="footer-link-text">Projects</span>
         </a>
-        <a href="#" class="footer-link">
+        <a href="About.php" class="footer-link">
             <span class="footer-link-text">About</span>
         </a>
-        <a href="#" class="footer-link">
+        <a href="contact.php" class="footer-link">
             <span class="footer-link-text">Contact</span>
         </a>
     </nav>

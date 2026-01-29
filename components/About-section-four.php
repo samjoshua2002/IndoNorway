@@ -26,6 +26,8 @@
   padding: 10px 32px;
   border: none;
   cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
 
   color: #ffffff;
   font-family: 'Figtree', sans-serif;
@@ -40,6 +42,7 @@
 .buttons-bt-24-pt-sans-dark:hover {
   transform: translateY(-2px);
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
 }
 
 /* Mobile */
@@ -54,6 +57,7 @@
     max-width: 280px;
     font-size: 20px;
     padding: 14px 24px;
+    text-align: center;
   }
 }
 
@@ -62,8 +66,8 @@
   <p class="title-dark text-center mb-4">Get Involved</p>
 
   <div class="get-involved-buttons">
-    <button class="buttons-bt-24-pt-sans-dark">Projects</button>
-    <button class="buttons-bt-24-pt-sans-dark">People</button>
-    <button class="buttons-bt-24-pt-sans-dark">Contact</button>
+    <a href="Projects.php" class="buttons-bt-24-pt-sans-dark">Projects</a>
+    <a href="People.php" class="buttons-bt-24-pt-sans-dark">People</a>
+    <a href="Contact.php" class="buttons-bt-24-pt-sans-dark">Contact</a>
   </div>
 </div>
