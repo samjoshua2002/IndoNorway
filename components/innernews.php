@@ -29,27 +29,82 @@
 
         if ($event):
             ?>
-            <!-- Header Section -->
-            <div class="inner-news__header">
-                <div class="inner-news__breadcrumb">
-                    <a href="News-Events.php" class="breadcrumb-link">&lt; All News</a>
-                </div>
-                <!-- Main Title from events table -->
-                <h1 class="inner-news__title"><?php echo htmlspecialchars($event['title'] ?? ''); ?></h1>
-            </div>
-
-            <!-- Featured Image from events table -->
-            <?php if (!empty($event['image'])): ?>
-                <img class="inner-news__image" src="assets/files/news/<?php echo htmlspecialchars($event['image'] ?? ''); ?>"
-                    alt="<?php echo htmlspecialchars($event['title'] ?? ''); ?>" />
-            <?php endif; ?>
-
-            <!-- Main Content Section from events table (Description) -->
-            <div class="inner-news__content">
-                <div class="content-block">
-                    <div class="content-text">
-                        <?php echo nl2br(htmlspecialchars($event['description'] ?? '')); ?>
+            <!-- Main Event Layout -->
+            <div class="event-details-container">
+                <!-- Header / Nav -->
+                <div class="event-header-nav">
+                    <div class="link-small-nav">
+                        <a href="News-Events.php" class="back-link">&lt; All News</a>
                     </div>
+                </div>
+
+                <!-- Top Section (Hero) -->
+                <div class="event-hero">
+                    <?php if (!empty($event['image'])): ?>
+                        <img class="event-hero-image"
+                            src="assets/files/news/<?php echo htmlspecialchars($event['image'] ?? ''); ?>"
+                            alt="<?php echo htmlspecialchars($event['title'] ?? ''); ?>" />
+                    <?php endif; ?>
+
+                    <div class="event-hero-details">
+                        <div class="event-meta-group">
+                            <div class="event-tag"><?php echo htmlspecialchars($event['tag'] ?? ''); ?></div>
+                            <div class="event-title"><?php echo htmlspecialchars($event['title'] ?? ''); ?></div>
+                        </div>
+
+                        <div class="event-info-group">
+                            <?php if (!empty($event['event_date']) || !empty($event['event_time'])): ?>
+                                <div class="event-info-row">
+                                    <span>
+                                        <?php if (!empty($event['event_time'])): ?>
+                                            <span class="info-label">Time:</span>
+                                        <?php endif; ?>
+                                        <span class="info-value">
+                                            <?php echo htmlspecialchars($event['event_date'] ?? ''); ?>
+                                            <?php echo htmlspecialchars($event['event_time'] ?? ''); ?>
+                                        </span>
+                                    </span>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($event['venue'])): ?>
+                                <div class="event-info-row">
+                                    <span>
+                                        <span class="info-label">Venue:</span>
+                                        <span class="info-value">
+                                            <?php echo htmlspecialchars($event['venue'] ?? ''); ?>
+                                        </span>
+                                    </span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Body -->
+                <div class="event-content-body">
+                    <!-- Speaker -->
+                    <?php if (!empty($event['speaker'])): ?>
+                        <div class="event-speaker-block">
+                            <span>
+                                <span class="info-label">Speaker:</span>
+                                <span class="info-value">
+                                    <?php echo nl2br(htmlspecialchars($event['speaker'] ?? '')); ?>
+                                </span>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Description -->
+                    <?php if (!empty($event['description'])): ?>
+                        <div class="event-speaker-block">
+                            <span>
+                                <span class="info-value">
+                                    <?php echo nl2br(htmlspecialchars($event['description'] ?? '')); ?>
+                                </span>
+                            </span>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -66,6 +121,7 @@
                 while ($section = $sections_result->fetch_assoc()):
                     ?>
                     <div class="inner-news__section">
+
                         <?php if (!empty($section['subtitle'])): ?>
                             <h2 class="section-title"><?php echo htmlspecialchars($section['subtitle'] ?? ''); ?></h2>
                         <?php endif; ?>
@@ -93,97 +149,198 @@
 <style>
     /* CSS Variables */
     :root {
-        --font-header: 'Figtree-Bold', sans-serif;
-        --font-body: 'CrimsonPro-Regular', sans-serif;
-        --color-text: #000000;
-        --color-bg: #ffffff;
+        --indo-header-font: 'Figtree-Bold', sans-serif;
+        --indo-body-font: 'CrimsonPro-Regular', sans-serif;
+        --indo-italic-font: 'CrimsonPro-Italic', sans-serif;
+        --indo-caption-font: 'Figtree-Regular', sans-serif;
     }
 
-    * {
+    .event-details-container,
+    .event-details-container * {
         box-sizing: border-box;
     }
 
-    .section-padding {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-
-    /* Main Container */
-    .inner-news {
+    .event-details-container {
         display: flex;
         flex-direction: column;
         gap: 48px;
         align-items: center;
         justify-content: flex-start;
         position: relative;
-        margin: 0 auto;
+        width: 100%;
+        margin-top: 40px;
     }
 
-    /* Header Section */
-    .inner-news__header {
+    @media (min-width: 992px) {
+        .event-details-container {
+            margin-top: 40px;
+        }
+    }
+
+    /* Header */
+    .event-header-nav {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 16px;
         align-items: flex-start;
         justify-content: flex-start;
+        flex-shrink: 0;
         width: 100%;
         position: relative;
     }
 
-    .inner-news__breadcrumb {
+    .link-small-nav {
         display: flex;
         flex-direction: row;
         gap: 10px;
         align-items: center;
         justify-content: center;
+        flex-shrink: 0;
         position: relative;
     }
 
-    .breadcrumb-link {
-        color: var(--color-text);
+    .back-link {
+        color: #000000;
         text-align: left;
-        font-family: var(--font-body);
+        font-family: var(--indo-body-font);
         font-size: 20px;
         line-height: 108%;
         font-weight: 400;
-        text-decoration: none;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        transition: text-decoration 0.2s ease;
+        text-decoration: none;
     }
 
-    .breadcrumb-link:hover {
-        text-decoration: underline;
-        color: var(--color-text);
-    }
-
-    .inner-news__title {
-        color: var(--color-text);
-        text-align: left;
-        font-family: var(--font-header);
-        font-size: 36px;
-        line-height: 112%;
-        letter-spacing: -0.5px;
-        font-weight: 700;
+    /* Hero Section */
+    .event-hero {
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        align-self: stretch;
+        flex-shrink: 0;
         position: relative;
-        width: 100%;
-        margin: 0;
     }
 
-    /* Featured Image */
-    .inner-news__image {
-        width: 100%;
-        height: auto;
-        max-height: 897px;
+    .event-hero-image {
+        flex-shrink: 0;
+        width: 388px;
+        height: 291px;
         position: relative;
         object-fit: cover;
         aspect-ratio: 4/3;
     }
 
-    /* Content Sections */
-    .inner-news__content,
+    .event-hero-details {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex: 1;
+        position: relative;
+    }
+
+    /* Meta Group */
+    .event-meta-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        align-self: stretch;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .event-tag {
+        color: #000000;
+        text-align: left;
+        font-family: var(--indo-caption-font);
+        font-size: 16px;
+        line-height: 100%;
+        letter-spacing: 2px;
+        font-weight: 400;
+        text-transform: uppercase;
+        position: relative;
+        align-self: stretch;
+    }
+
+    .event-title {
+        color: #000000;
+        text-align: left;
+        font-family: var(--indo-header-font);
+        font-size: 32px;
+        line-height: 112%;
+        letter-spacing: -0.5px;
+        font-weight: 700;
+        position: relative;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    /* Info Group */
+    .event-info-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        align-self: stretch;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .event-info-row {
+        color: #000000;
+        text-align: left;
+        font-family: var(--indo-body-font);
+        font-size: 20px;
+        line-height: 108%;
+        font-weight: 400;
+        position: relative;
+        align-self: stretch;
+    }
+
+    .info-label {
+        font-family: var(--indo-italic-font);
+        font-style: italic;
+    }
+
+    .info-value {
+        font-family: var(--indo-body-font);
+        
+    }
+
+    /* Content Body */
+    .event-content-body {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        align-self: stretch;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .event-speaker-block {
+        color: #000000;
+        text-align: left;
+        font-family: var(--indo-body-font);
+        font-size: 20px;
+        line-height: 108%;
+        font-weight: 400;
+        position: relative;
+        align-self: stretch;
+    }
+
+    /* Preserved Section Styles */
     .inner-news__section {
         display: flex;
         flex-direction: column;
@@ -192,31 +349,13 @@
         justify-content: flex-start;
         width: 100%;
         position: relative;
-    }
-
-    .content-block,
-    .section-content {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        width: 100%;
-    }
-
-    .content-text {
-        color: var(--color-text);
-        text-align: justify;
-        font-family: var(--font-body);
-        font-size: 24px;
-        line-height: 108%;
-        font-weight: 400;
-        margin: 0;
-        width: 100%;
+        padding-top: 10px;
     }
 
     .section-title {
-        color: var(--color-text);
+        color: #000000;
         text-align: left;
-        font-family: var(--font-header);
+        font-family: var(--indo-header-font);
         font-size: 32px;
         line-height: 112%;
         letter-spacing: -0.5px;
@@ -225,44 +364,26 @@
         width: 100%;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .inner-news {
-            gap: 32px;
-        }
-
-        .inner-news__title {
-            font-size: 28px;
-        }
-
-        .section-title {
-            font-size: 24px;
-        }
-
-        .content-text {
-            font-size: 20px;
-        }
-
-        .breadcrumb-link {
-            font-size: 18px;
-        }
+    .content-text {
+        color: #000000;
+        text-align: justify;
+        font-family: var(--indo-body-font);
+        font-size: 20px;
+        line-height: 108%;
+        font-weight: 400;
+        margin: 0;
+        width: 100%;
     }
 
-    @media (max-width: 480px) {
-        .inner-news {
-            gap: 24px;
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .event-hero {
+            flex-direction: column;
         }
 
-        .inner-news__title {
-            font-size: 24px;
-        }
-
-        .section-title {
-            font-size: 20px;
-        }
-
-        .content-text {
-            font-size: 18px;
+        .event-hero-image {
+            width: 100%;
+            height: auto;
         }
     }
 </style>

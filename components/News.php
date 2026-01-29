@@ -20,7 +20,11 @@
                 $category = !empty($row['tag']) ? htmlspecialchars($row['tag']) : '';
                 ?>
 
-                <div class="news-item news-item--bordered">
+                <?php 
+                $containerTag = $hasTitle ? 'a' : 'div';
+                $linkAttribute = $hasTitle ? 'href="InnerNews.php?id=' . htmlspecialchars($row['id']) . '"' : '';
+                ?>
+                <<?php echo $containerTag; ?> <?php echo $linkAttribute; ?> class="news-item news-item--bordered <?php echo $hasTitle ? 'news-item--clickable' : ''; ?>">
                     <?php if ($hasImage): ?>
                         <img class="news-item__image" src="assets/files/news/<?php echo htmlspecialchars($row['image']); ?>"
                             alt="<?php echo htmlspecialchars($row['title']); ?>" />
@@ -40,10 +44,7 @@
                         <?php else: ?>
                             <?php if ($hasTitle): ?>
                                 <div class="news-item__title">
-                                    <a href="InnerNews.php?id=<?php echo htmlspecialchars($row['id']); ?>"
-                                        style="text-decoration: none; color: inherit;">
-                                        <?php echo htmlspecialchars($row['title']); ?>
-                                    </a>
+                                    <?php echo htmlspecialchars($row['title']); ?>
                                 </div>
                             <?php endif; ?>
 
@@ -104,7 +105,7 @@
 
                         <?php endif; // End isCitation check ?>
                     </div>
-                </div>
+                </<?php echo $containerTag; ?>>
 
                 <?php
             }
@@ -178,12 +179,22 @@
         position: relative;
     }
 
-    .news-item--bordered {
-        border-width: 1px;
-        border-style: solid;
-        border-image: linear-gradient(90deg, #2DB9DD 0%, #008CFF 100%) 1;
-        /* Note: border-image currently overrides border-radius */
-    }
+.news-item--bordered {
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(90deg, #2DB9DD 0%, #008CFF 100%) 1;
+
+    transition: 
+        background-color 0.3s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.news-item--bordered:hover {
+    background-color: #E6F0F2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
 
     /* Image Styles */
     .news-item__image {
@@ -213,7 +224,13 @@
         text-align: justify;
     }
 
-    .news-item__title:hover {
+    .news-item--clickable {
+        text-decoration: none !important;
+        color: inherit !important;
+        cursor: pointer;
+    }
+
+    .news-item--clickable:hover .news-item__title {
         text-decoration: underline;
     }
 

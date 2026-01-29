@@ -57,7 +57,8 @@ CREATE TABLE `events` (
   `speaker` longtext,
   `description` longtext,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+;
 
 --
 -- Dumping data for table `events`
@@ -81,7 +82,8 @@ CREATE TABLE `event_sections` (
   `subtitle` varchar(2000) DEFAULT NULL,
   `sub_description` longtext,
   `section_order` int DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+;
 
 --
 -- Dumping data for table `event_sections`
