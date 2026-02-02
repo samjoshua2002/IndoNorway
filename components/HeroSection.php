@@ -14,7 +14,7 @@ if ($result && $result->num_rows > 0) {
 }
 ?>
 
-<div class="container pt-5 ">
+<div class="container pt-5 pb-0 pb-md-5">
     <div class="row g-4 align-items-stretch">
         <!-- Left Column: Carousel -->
         <div class="col-12 col-lg-8 d-flex flex-column">

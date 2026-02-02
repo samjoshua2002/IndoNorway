@@ -19,9 +19,7 @@
         if ($project):
             $imagePath = $project['image'] ? 'assets/files/projects/' . htmlspecialchars($project['image']) : '';
             // Use fallback image if none provided to match design feeling
-            if (empty($imagePath)) {
-                $imagePath = 'assets/files/projects/placeholder-sample.webp';
-            }
+           
             $statusClass = 'status-' . strtolower($project['category'] ?? '');
 
             // For Overview, content might have line breaks
@@ -66,6 +64,16 @@
             <!-- Banner Image -->
             <?php if (!empty($imagePath)): ?>
                 <img class="project-detail-image" src="<?php echo $imagePath; ?>" alt="Project Image" />
+            <?php endif; ?>
+
+             <!-- Overview Section -->
+            <?php if (!empty($project['Description'])): ?>
+                <div class="frame-55">
+                   
+                    <div class="overview-text">
+                        <?php echo nl2br($project['Description']); // Allow HTML/Breaks in overview ?>
+                    </div>
+                </div>
             <?php endif; ?>
 
             <!-- Overview Section -->

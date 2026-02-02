@@ -40,8 +40,9 @@
                 ?>
 
                 <!-- Project Card Link -->
-                <a href="InnerProjects.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="project-card-link"
-                    data-category="<?php echo strtolower($category); ?>">
+                <!-- Changed to div to avoid nested <a> tags issue with DOI links -->
+                <div onclick="if(!event.target.closest('a')) window.location.href='InnerProjects.php?id=<?php echo htmlspecialchars($row['id']); ?>'"
+                    class="project-card-link" style="cursor: pointer;" data-category="<?php echo strtolower($category); ?>">
                     <div class="project-card">
 
                         <?php if (!empty($imagePath)): ?>
@@ -106,7 +107,7 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                </a>
+                </div>
                 <!-- End Project Card -->
 
                 <?php
@@ -378,9 +379,9 @@
         }
 
         /* Hide images on mobile */
-        .project-image {
+        /* .project-image {
             display: none !important;
-        }
+        } */
     }
 </style>
 
@@ -400,5 +401,6 @@
                 card.style.display = 'none';
             }
         });
+
     }
 </script>
