@@ -11,10 +11,10 @@
 
     <div class="user-profile">
         <span class="d-none d-md-inline">Welcome,
-            <?php echo htmlspecialchars($_SESSION['username']); ?>
+            <?php echo htmlspecialchars($_SESSION['Name'] ?? $_SESSION['username']); ?>
         </span>
         <div class="user-avatar">
-            <?php echo strtoupper(substr($_SESSION['username'], 0, 1)); ?>
+            <?php echo strtoupper(substr($_SESSION['Name'] ?? $_SESSION['username'], 0, 1)); ?>
         </div>
         <a href="index.php?logout=true" class="text-white ms-3" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
     </div>

@@ -1,0 +1,69 @@
+:root {
+    --primary-gradient: linear-gradient(135deg, #002F72 0%, #0056b3 100%);
+    --accent-gradient: linear-gradient(135deg, #FF6B6B 0%, #EE5253 100%);
+    --success-gradient: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%);
+    --info-gradient: linear-gradient(135deg, #48dbfb 0%, #0abde3 100%);
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Base Layout for Dashboard Pages */
+.main-content {
+    background: #f0f2f5;
+    padding: 2.5rem;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 0.8s ease-out both;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+/* staggers */
+.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.delay-2 {
+    animation-delay: 0.2s;
+}
+
+.delay-3 {
+    animation-delay: 0.3s;
+}
+
+.delay-4 {
+    animation-delay: 0.4s;
+}
+
+.delay-5 {
+    animation-delay: 0.5s;
+}

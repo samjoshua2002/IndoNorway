@@ -156,6 +156,7 @@ if (isset($_GET['ajax'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Main Styles -->
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="dashboard.css">
 
     <style>
         /* Dashboard Specific Styles */
@@ -363,7 +364,7 @@ if (isset($_GET['ajax'])) {
         <?php include 'sidebar.php'; ?>
 
         <main class="main-content">
-            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2 animate-fade-in-down">
                 <h2 style="font-family: 'Figtree', sans-serif;">Manage Projects</h2>
                 <a href="edit-project.php" class="btn btn-primary"
                     style="background: var(--bg-dark-blue); border: none;">
@@ -371,7 +372,7 @@ if (isset($_GET['ajax'])) {
                 </a>
             </div>
 
-            <div class="card shadow-sm border-0">
+            <div class="card shadow-sm border-0 animate-fade-in-up delay-1">
                 <div class="card-body">
                     <!-- Search and Actions -->
                     <div class="row mb-3">

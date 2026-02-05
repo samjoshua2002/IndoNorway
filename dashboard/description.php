@@ -27,6 +27,7 @@ $result = $conn->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Main Styles -->
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="dashboard.css">
 
     <style>
         /* Dashboard Specific Styles */
@@ -190,13 +191,13 @@ $result = $conn->query($sql);
         <?php include 'sidebar.php'; ?>
 
         <main class="main-content">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 animate-fade-in-down">
                 <h2 style="font-family: 'Figtree', sans-serif;">Manage Description</h2>
                 <!-- Only allow adding if none exists (assuming single description block usually, but CRUD supports list) -->
 
             </div>
 
-            <div class="card shadow-sm border-0">
+            <div class="card shadow-sm border-0 animate-fade-in-up delay-1">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-hover table-custom mb-0">
